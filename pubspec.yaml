@@ -32,6 +32,11 @@ dependencies:
   flutter_svg: ^0.17.1
   image_cropper: ^1.1.1
   url_launcher: ^5.4.2
+  shared_preferences: ^0.5.6+3
+  device_info: ^0.4.0+4
+  date_format: ^1.0.8
+  pull_to_refresh: ^1.5.7
+  onesignal_flutter: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -58,6 +63,13 @@ flutter:
   - images/ic_phone.svg
   - images/ic_splash.png
   - images/banner.png
+  - images/ic_comment.svg
+  - images/ic_dislike.svg
+  - images/ic_info.svg
+  - images/ic_send.svg
+  - images/ic_share.svg
+  - images/ic_star.svg
+  - images/ic_world.svg
     # An image asset can refer to one or more resolution-specific "variants", see
     # https://flutter.dev/assets-and-images/#resolution-aware.
 
@@ -109,6 +121,10 @@ flutter:
   - family: Montserrat Light
     fonts:
     - asset: fonts/Montserrat-Light.ttf
+      weight: 700
+  - family: Montserrat SemiBold
+    fonts:
+    - asset: fonts/Montserrat-SemiBold.ttf
       weight: 700
 
     # For details regarding fonts from package dependencies,

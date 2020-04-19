@@ -76,6 +76,9 @@ target 'Runner' do
     File.symlink(path, symlink)
     pod name, :path => File.join(symlink, 'ios')
   end
+  target 'OneSignalNotificationServiceExtension' do
+    pod 'OneSignal', '>= 2.9.3', '< 3.0'
+  end
 end
 
 post_install do |installer|

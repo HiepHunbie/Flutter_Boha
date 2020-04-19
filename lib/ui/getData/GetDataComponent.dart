@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:boha/components/EmptyAppBar.dart';
 import 'package:boha/components/MySeparator.dart';
+import 'package:boha/model/ErrorData.dart';
+import 'package:boha/model/getData/GetDataInput.dart';
+import 'package:boha/model/getData/GetDataResult.dart';
 import 'package:boha/utils/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:boha/ui/splash/SplashPresenter.dart';
@@ -15,25 +18,13 @@ class GetDataPageState extends State<GetDataPage> implements GetDataView {
   String _phone = "";
   String _name_or_fb = "";
   String _address = "";
-  String _history = "";
+  String _yourShop = "";
   int _radioValue1 = -1;
+  bool _isLoading = false;
   BasicGetDataPresenter presenter;
 
   GetDataPageState() {
     presenter = new BasicGetDataPresenter(this);
-  }
-
-  void _handleRadioValueChange1(int value) {
-    setState(() {
-      _radioValue1 = value;
-
-      switch (_radioValue1) {
-        case 0:
-          break;
-        case 1:
-          break;
-      }
-    });
   }
 
   void navigationPage() {
@@ -71,7 +62,15 @@ class GetDataPageState extends State<GetDataPage> implements GetDataView {
                     color: Colors.white,
                     margin: EdgeInsets.only(bottom: 10),
                     child: _buttonSend(),
-                  ),)
+                  ),),
+                _isLoading ? new Container(
+                  alignment: Alignment.center,
+                  color: Color(BACK_TRANS_LOADING),
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: new CircularProgressIndicator(),
+                )
+                    : new Container(),
               ]
           )
       ),
@@ -85,27 +84,33 @@ class GetDataPageState extends State<GetDataPage> implements GetDataView {
       child: new SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(bottom: 5),
-              alignment: Alignment.centerLeft,
-              child: Text(AppLocalizations.of(context).translate('phone'),
-                  style: TextStyle(color: Color(TEXT_TITLE), fontSize: 14, fontFamily: 'Montserrat Regular',fontWeight: FontWeight.bold,)),
-            ),
             new Container(
-              margin: EdgeInsets.only(bottom: 5),
-              height: 40,
+              margin: EdgeInsets.only(bottom: 15,top: 5),
+              height: 48,
               child: new TextFormField(
                 decoration:  new InputDecoration(
-                    labelStyle: TextStyle(
-                      color: Color(TEXT_MAIN),
-                      fontSize: 14.0,
-                    ),
-                    hintText: AppLocalizations.of(context).translate('phone_hint'),
-                    hintStyle: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 14.0,
-                    ),
-                    border: InputBorder.none
+                  labelText: AppLocalizations.of(context).translate('phone'),
+                  labelStyle: TextStyle(
+                      color: Color(TEXT_TITLE),
+                      fontSize: 14.0,fontFamily: 'Montserrat SemiBold',fontWeight: FontWeight.bold
+                  ),
+                  hintText: AppLocalizations.of(context).translate('phone_hint_data'),
+                  hintStyle: TextStyle(
+                      color: Color(BORDER_SEARCH),
+                      fontSize: 14.0,fontFamily: 'Montserrat SemiBold',fontWeight: FontWeight.normal
+                  ),
+                  border:  OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(BORDER_SEARCH)),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(BORDER_SEARCH)),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(BORDER_SEARCH)),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
                 ),
                 textAlign: TextAlign.left,
                 autofocus: false,
@@ -118,31 +123,33 @@ class GetDataPageState extends State<GetDataPage> implements GetDataView {
                 },
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(top: 8,bottom: 10),
-              child: const MySeparator(color: Colors.grey),
-            ),
-            Container(
-              margin: EdgeInsets.only(bottom: 5),
-              alignment: Alignment.centerLeft,
-              child: Text(AppLocalizations.of(context).translate('name'),
-                  style: TextStyle(color: Color(TEXT_TITLE), fontSize: 14, fontFamily: 'Montserrat Regular',fontWeight: FontWeight.bold,)),
-            ),
             new Container(
-              margin: EdgeInsets.only(bottom: 5),
-              height: 40,
+              margin: EdgeInsets.only(bottom: 15),
+              height: 48,
               child: new TextFormField(
                 decoration:  new InputDecoration(
-                    labelStyle: TextStyle(
-                      color: Color(TEXT_MAIN),
-                      fontSize: 14.0,
-                    ),
-                    hintText: AppLocalizations.of(context).translate('name_hint'),
-                    hintStyle: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 14.0,
-                    ),
-                    border: InputBorder.none
+                  labelText: AppLocalizations.of(context).translate('name'),
+                  labelStyle: TextStyle(
+                      color: Color(TEXT_TITLE),
+                      fontSize: 14.0,fontFamily: 'Montserrat SemiBold',fontWeight: FontWeight.bold
+                  ),
+                  hintText: AppLocalizations.of(context).translate('name_hint'),
+                  hintStyle: TextStyle(
+                      color: Color(BORDER_SEARCH),
+                      fontSize: 14.0,fontFamily: 'Montserrat SemiBold',fontWeight: FontWeight.normal
+                  ),
+                  border:  OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(BORDER_SEARCH)),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(BORDER_SEARCH)),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(BORDER_SEARCH)),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
                 ),
                 textAlign: TextAlign.left,
                 autofocus: false,
@@ -155,31 +162,33 @@ class GetDataPageState extends State<GetDataPage> implements GetDataView {
                 },
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(top: 8,bottom: 10),
-              child: const MySeparator(color: Colors.grey),
-            ),
-            Container(
-              margin: EdgeInsets.only(bottom: 5),
-              alignment: Alignment.centerLeft,
-              child: Text(AppLocalizations.of(context).translate('your_address'),
-                  style: TextStyle(color: Color(TEXT_TITLE), fontSize: 14, fontFamily: 'Montserrat Regular',fontWeight: FontWeight.bold,)),
-            ),
             new Container(
-              margin: EdgeInsets.only(bottom: 5),
-              height: 40,
+              margin: EdgeInsets.only(bottom: 15),
+              height: 48,
               child: new TextFormField(
                 decoration:  new InputDecoration(
-                    labelStyle: TextStyle(
-                      color: Color(TEXT_MAIN),
-                      fontSize: 14.0,
-                    ),
-                    hintText: AppLocalizations.of(context).translate('your_address_hint'),
-                    hintStyle: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 14.0,
-                    ),
-                    border: InputBorder.none
+                  labelText: AppLocalizations.of(context).translate('your_email'),
+                  labelStyle: TextStyle(
+                      color: Color(TEXT_TITLE),
+                      fontSize: 14.0,fontFamily: 'Montserrat SemiBold',fontWeight: FontWeight.bold
+                  ),
+                  hintText: AppLocalizations.of(context).translate('your_email_hint'),
+                  hintStyle: TextStyle(
+                      color: Color(BORDER_SEARCH),
+                      fontSize: 14.0,fontFamily: 'Montserrat SemiBold',fontWeight: FontWeight.normal
+                  ),
+                  border:  OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(BORDER_SEARCH)),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(BORDER_SEARCH)),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(BORDER_SEARCH)),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
                 ),
                 textAlign: TextAlign.left,
                 autofocus: false,
@@ -192,31 +201,33 @@ class GetDataPageState extends State<GetDataPage> implements GetDataView {
                 },
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(top: 8,bottom: 10),
-              child: const MySeparator(color: Colors.grey),
-            ),
-            Container(
-              margin: EdgeInsets.only(bottom: 5),
-              alignment: Alignment.centerLeft,
-              child: Text(AppLocalizations.of(context).translate('your_shop'),
-                  style: TextStyle(color: Color(TEXT_TITLE), fontSize: 14, fontFamily: 'Montserrat Regular',fontWeight: FontWeight.bold,)),
-            ),
             new Container(
-              margin: EdgeInsets.only(bottom: 10),
-              height: 40,
+              margin: EdgeInsets.only(bottom: 15),
+              height: 48,
               child: new TextFormField(
                 decoration:  new InputDecoration(
-                    labelStyle: TextStyle(
-                      color: Color(TEXT_MAIN),
-                      fontSize: 14.0,
-                    ),
-                    hintText: AppLocalizations.of(context).translate('your_shop_hint'),
-                    hintStyle: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 14.0,
-                    ),
-                    border: InputBorder.none
+                  labelText: AppLocalizations.of(context).translate('your_shop'),
+                  labelStyle: TextStyle(
+                      color: Color(TEXT_TITLE),
+                      fontSize: 14.0,fontFamily: 'Montserrat SemiBold',fontWeight: FontWeight.bold
+                  ),
+                  hintText: AppLocalizations.of(context).translate('your_shop_hint'),
+                  hintStyle: TextStyle(
+                      color: Color(BORDER_SEARCH),
+                      fontSize: 14.0,fontFamily: 'Montserrat SemiBold',fontWeight: FontWeight.normal
+                  ),
+                  border:  OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(BORDER_SEARCH)),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(BORDER_SEARCH)),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(BORDER_SEARCH)),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
                 ),
                 textAlign: TextAlign.left,
                 autofocus: false,
@@ -224,7 +235,7 @@ class GetDataPageState extends State<GetDataPage> implements GetDataView {
                 autocorrect: false,
                 onChanged: (text) {
                   setState((){
-                    this._address = text;
+                    this._yourShop = text;
                   });
                 },
               ),
@@ -242,16 +253,19 @@ class GetDataPageState extends State<GetDataPage> implements GetDataView {
   }
   Widget _buttonSend(){
     return new Container(
+      height: 48,
       margin: new EdgeInsets.only(left: 10.0, right: 10.0),
       child:new Row(
         children: <Widget>[
-          new Expanded(child: new RaisedButton(
-            color: Colors.blue,
-            textColor: Colors.white,
-            child: new Text(AppLocalizations.of(context).translate('get_data')),
-            onPressed: () {
-            },
-          )),
+          new Expanded(child: ButtonTheme(
+              minWidth: 200.0,
+              height: 48.0,
+              child: new RaisedButton(
+                color: Colors.blue,
+                textColor: Colors.white,
+                child: new Text(AppLocalizations.of(context).translate('get_data')),
+                onPressed: () => _getDataInfo(),
+              ))),
         ],
       ) ,
     );
@@ -275,6 +289,42 @@ class GetDataPageState extends State<GetDataPage> implements GetDataView {
         ],
       ),
     );
+  }
+  void _getDataInfo(){
+    GetDataInput getDataInput = new GetDataInput();
+    getDataInput.owner = this._name_or_fb.trim();
+    getDataInput.phone = this._phone.trim();
+    getDataInput.email = this._address.trim();
+    getDataInput.name = this._yourShop.trim();
+    setState(() {
+      _isLoading = true;
+    });
+    presenter.getDataInfo(getDataInput);
+  }
+  @override
+  void onError(String items) {
+    setState(() {
+      _isLoading = false;
+    });
+    _showAlertError(context,items);
+  }
+  void _showAlertError(BuildContext context, String value) {
+
+    showDialog(
+        context: context,
+        builder: (context) =>
+            AlertDialog(
+              title: Text("Error"),
+              content: Text(value.trim()),
+            )
+    );
+  }
+  @override
+  void onSuccess(GetDataResult items) {
+    setState(() {
+      _isLoading = false;
+    });
+    navigationPage();
   }
 }
 class GetDataPage extends StatefulWidget {

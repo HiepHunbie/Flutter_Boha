@@ -6,6 +6,7 @@ import 'package:boha/utils/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:boha/ui/splash/SplashPresenter.dart';
 import 'package:boha/ui/list/ListComponent.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../app_localizations.dart';
 import 'InfoPresenter.dart';
@@ -58,16 +59,25 @@ class InfoPageState extends State<InfoPage> implements InfoView {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Container( height: 50,margin: EdgeInsets.only(right: 10),
-                child: Icon(Icons.share,color: Color(TEXT_MAIN),size: 30,),),
+              Container( height: 40,
+                width: 40,margin: EdgeInsets.only(right: 10),
+                decoration: new BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(6),
+                    color: Color(BORDER_BUTTON_GRAY)
+                ),
+                child: Padding(padding: EdgeInsets.all(12),
+                    child: SvgPicture.asset("images/ic_share.svg",color: Color(TEXT_MAIN))),),
               Container(
-                height: 50,
+                height: 40,
                 alignment: Alignment.centerLeft,
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(AppLocalizations.of(context).translate('share_app'),
                         style: TextStyle(color: Color(TEXT_TITLE), fontSize: 16, fontFamily: 'Montserrat Bold',fontWeight: FontWeight.bold,)),
+
                     Text(AppLocalizations.of(context).translate('share_with_friends'),
                         style: TextStyle(color: Color(TEXT_GRAY), fontSize: 12, fontFamily: 'Montserrat Regular',fontWeight: FontWeight.normal,)),
 
@@ -76,7 +86,7 @@ class InfoPageState extends State<InfoPage> implements InfoView {
 
             ],
           ),
-          Container( height: 50,alignment: Alignment.centerRight,
+          Container( height: 40,alignment: Alignment.centerRight,
             child: Icon(Icons.navigate_next,color: Colors.grey,size: 20,),)
         ],
       ),
@@ -88,13 +98,20 @@ class InfoPageState extends State<InfoPage> implements InfoView {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Container( height: 50,margin: EdgeInsets.only(right: 10),
-                child: Icon(Icons.star,color: Color(TEXT_MAIN),size: 30,),),
+              Container( height: 40,margin: EdgeInsets.only(right: 10),
+                decoration: new BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(6),
+                    color: Color(BORDER_BUTTON_GRAY)
+                ),
+                child: Padding(padding: EdgeInsets.all(12),
+                    child: SvgPicture.asset("images/ic_star.svg",color: Color(TEXT_MAIN))),),
               Container(
-                height: 50,
+                height: 40,
                 alignment: Alignment.centerLeft,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(AppLocalizations.of(context).translate('vote_app'),
                         style: TextStyle(color: Color(TEXT_TITLE), fontSize: 16, fontFamily: 'Montserrat Bold',fontWeight: FontWeight.bold,)),
@@ -105,7 +122,7 @@ class InfoPageState extends State<InfoPage> implements InfoView {
 
             ],
           ),
-          Container( height: 50,alignment: Alignment.centerRight,
+          Container( height: 40,alignment: Alignment.centerRight,
             child: Icon(Icons.navigate_next,color: Colors.grey,size: 20,),)
         ],
       ),
@@ -120,13 +137,20 @@ class InfoPageState extends State<InfoPage> implements InfoView {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Container( height: 50,margin: EdgeInsets.only(right: 10),
-                    child: Icon(Icons.language,color: Color(TEXT_MAIN),size: 30,),),
+                  Container( height: 40,margin: EdgeInsets.only(right: 10),
+                    decoration: new BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(6),
+                        color: Color(BORDER_BUTTON_GRAY)
+                    ),
+                    child: Padding(padding: EdgeInsets.all(12),
+                        child: SvgPicture.asset("images/ic_world.svg",color: Color(TEXT_MAIN))),),
                   Container(
-                    height: 50,
+                    height: 40,
                     alignment: Alignment.centerLeft,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(AppLocalizations.of(context).translate('lts_sf'),
                             style: TextStyle(color: Color(TEXT_TITLE), fontSize: 16, fontFamily: 'Montserrat Bold',fontWeight: FontWeight.bold,)),
@@ -138,7 +162,45 @@ class InfoPageState extends State<InfoPage> implements InfoView {
 
                 ],
               ),
-              Container( height: 50,alignment: Alignment.centerRight,
+              Container( height: 40,alignment: Alignment.centerRight,
+                child: Icon(Icons.navigate_next,color: Colors.grey,size: 20,),)
+            ],
+          ),
+        ));
+  }
+
+  Widget _teamApps(){
+
+    return new GestureDetector(
+        onTap: () => _launchURL(),
+        child:new Container(
+          child: new Stack(
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Container( height: 40,margin: EdgeInsets.only(right: 10),
+                    decoration: new BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(6),
+                        color: Color(BORDER_BUTTON_GRAY)
+                    ),
+                    child: Padding(padding: EdgeInsets.all(12),
+                        child: SvgPicture.asset("images/ic_star.svg",color: Color(TEXT_MAIN))),),
+                  Container(
+                    height: 40,
+                    alignment: Alignment.centerLeft,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(AppLocalizations.of(context).translate('game_wall'),
+                            style: TextStyle(color: Color(TEXT_TITLE), fontSize: 16, fontFamily: 'Montserrat Bold',fontWeight: FontWeight.bold,)),
+                      ],
+                    ),)
+
+                ],
+              ),
+              Container( height: 40,alignment: Alignment.centerRight,
                 child: Icon(Icons.navigate_next,color: Colors.grey,size: 20,),)
             ],
           ),
@@ -153,7 +215,7 @@ class InfoPageState extends State<InfoPage> implements InfoView {
         child: Column(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(bottom: 10),
+              margin: EdgeInsets.only(bottom: 15),
               alignment: Alignment.centerLeft,
               child: Text(AppLocalizations.of(context).translate('introduce_all'),
                   style: TextStyle(color: Color(TEXT_GRAY), fontSize: 14, fontFamily: 'Montserrat Bold',fontWeight: FontWeight.bold,)),
@@ -169,7 +231,7 @@ class InfoPageState extends State<InfoPage> implements InfoView {
               ],
             ),
             Container(
-              margin: EdgeInsets.only(top: 10,bottom: 10),
+              margin: EdgeInsets.only(top: 15,bottom: 15),
               child: const MySeparator(color: Colors.grey),
             ),
             new Stack(
@@ -183,22 +245,29 @@ class InfoPageState extends State<InfoPage> implements InfoView {
               ],
             ),
             Container(
-              margin: EdgeInsets.only(top : 20,bottom: 10),
+              margin: EdgeInsets.only(top : 30,bottom: 15),
               alignment: Alignment.centerLeft,
               child: Text(AppLocalizations.of(context).translate('useful'),
                   style: TextStyle(color: Color(TEXT_GRAY), fontSize: 14, fontFamily: 'Montserrat Bold',fontWeight: FontWeight.bold,)),
             ),
             _shareApp(),
             Container(
-              margin: EdgeInsets.only(top: 10,bottom: 10),
+              margin: EdgeInsets.only(top: 15,bottom: 15),
               child: const MySeparator(color: Colors.grey),
             ),
             _voteApp(),
             Container(
-              margin: EdgeInsets.only(top: 10,bottom: 10),
+              margin: EdgeInsets.only(top: 15,bottom: 15),
               child: const MySeparator(color: Colors.grey),
             ),
-            _teamBuildApp()
+            _teamBuildApp(),
+            Container(
+              margin: EdgeInsets.only(top : 30,bottom: 15),
+              alignment: Alignment.centerLeft,
+              child: Text(AppLocalizations.of(context).translate('good_app'),
+                  style: TextStyle(color: Color(TEXT_GRAY), fontSize: 14, fontFamily: 'Montserrat Bold',fontWeight: FontWeight.bold,)),
+            ),
+            _teamApps()
           ],
         ),),
     ) ;

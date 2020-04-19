@@ -21,9 +21,10 @@ class SplashPageState extends State<SpashPage> implements SplashView {
   }
 
   void navigationPage() {
-    Navigator.push(
+    Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => ListPage()),
+            (Route<dynamic> route) => false
     );
   }
 
