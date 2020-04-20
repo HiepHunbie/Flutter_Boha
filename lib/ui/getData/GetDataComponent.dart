@@ -6,9 +6,11 @@ import 'package:boha/model/ErrorData.dart';
 import 'package:boha/model/getData/GetDataInput.dart';
 import 'package:boha/model/getData/GetDataResult.dart';
 import 'package:boha/utils/Colors.dart';
+import 'package:boha/utils/Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:boha/ui/splash/SplashPresenter.dart';
 import 'package:boha/ui/list/ListComponent.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../app_localizations.dart';
 import 'GetDataPresenter.dart';
 import 'GetDataView.dart';
@@ -21,6 +23,7 @@ class GetDataPageState extends State<GetDataPage> implements GetDataView {
   String _yourShop = "";
   int _radioValue1 = -1;
   bool _isLoading = false;
+  String _playerId = "";
   BasicGetDataPresenter presenter;
 
   GetDataPageState() {
@@ -40,6 +43,7 @@ class GetDataPageState extends State<GetDataPage> implements GetDataView {
     setState(() {
       _radioValue1 = 0;
     });
+    _getPlayerId();
   }
 
   @override
@@ -296,10 +300,17 @@ class GetDataPageState extends State<GetDataPage> implements GetDataView {
     getDataInput.phone = this._phone.trim();
     getDataInput.email = this._address.trim();
     getDataInput.name = this._yourShop.trim();
+    getDataInput.player_id = this._playerId;
     setState(() {
       _isLoading = true;
     });
     presenter.getDataInfo(getDataInput);
+  }
+  _getPlayerId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      this._playerId = prefs.getString(PLAYER_ID)??"";
+    });
   }
   @override
   void onError(String items) {

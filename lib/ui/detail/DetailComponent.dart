@@ -277,7 +277,7 @@ class DetailPageState extends State<DetailPage> implements DetailView {
             children: <Widget>[
               Stack(children: <Widget>[
                 Align(alignment: Alignment.centerLeft,
-                  child: Text(hotel.userId,
+                  child: Text(hotel.user_name,
                       style: TextStyle(color: Color(TEXT_TITLE), fontSize: 16, fontFamily: 'Montserrat Bold',fontWeight: FontWeight.bold,)),),
                 Align(alignment: Alignment.centerRight,
                   child: Text(_genDateComment(hotel.createdAt.toString()),

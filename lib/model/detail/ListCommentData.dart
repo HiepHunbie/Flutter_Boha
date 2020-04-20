@@ -79,6 +79,7 @@ class Comment {
   int totalDislike;
   DateTime createdAt;
   DateTime updatedAt;
+  String user_name;
 
   Comment({
     this.id,
@@ -89,6 +90,7 @@ class Comment {
     this.totalDislike,
     this.createdAt,
     this.updatedAt,
+    this.user_name,
   });
 
   factory Comment.fromRawJson(String str) => Comment.fromJson(json.decode(str));
@@ -96,14 +98,15 @@ class Comment {
   String toRawJson() => json.encode(toJson());
 
   factory Comment.fromJson(Map<String, dynamic> json) => Comment(
-    id: json["id"],
-    userId: json["user_id"],
-    type: json["type"],
-    postId: json["post_id"],
-    message: json["message"],
+    id: json["id"]?? "",
+    userId: json["user_id"]?? "",
+    type: json["type"]?? "",
+    postId: json["post_id"]?? "",
+    message: json["message"]?? "",
     totalDislike: json["total_dislike"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
+    user_name: json["user_name"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
@@ -115,6 +118,7 @@ class Comment {
     "total_dislike": totalDislike,
     "created_at": createdAt.toIso8601String(),
     "updated_at": updatedAt.toIso8601String(),
+    "user_name": user_name,
   };
 }
 

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 class UserResult {
   int id;
-  dynamic name;
+  String name;
   String shortId;
   String device;
   String deviceId;

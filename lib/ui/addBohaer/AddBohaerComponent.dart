@@ -147,7 +147,7 @@ class AddBohaerPageState extends State<AddBohaerPage> implements AddBohaerView {
                       color: Color(TEXT_TITLE),
                       fontSize: 14.0,fontFamily: 'Montserrat SemiBold',fontWeight: FontWeight.bold
                   ),
-                  hintText: AppLocalizations.of(context).translate('phone_hint'),
+                  hintText: _radioValue1==0?AppLocalizations.of(context).translate('phone_hint'):AppLocalizations.of(context).translate('phone_hint_cheat'),
                   hintStyle: TextStyle(
                       color: Color(BORDER_SEARCH),
                       fontSize: 14.0,fontFamily: 'Montserrat SemiBold',fontWeight: FontWeight.normal
@@ -186,7 +186,7 @@ class AddBohaerPageState extends State<AddBohaerPage> implements AddBohaerView {
                       color: Color(TEXT_TITLE),
                       fontSize: 14.0, fontFamily: 'Montserrat SemiBold',fontWeight: FontWeight.bold
                   ),
-                  hintText: AppLocalizations.of(context).translate('facebook_or_name_hint'),
+                  hintText: _radioValue1==0?AppLocalizations.of(context).translate('facebook_or_name_hint'):AppLocalizations.of(context).translate('facebook_or_name_hint_cheat'),
                   hintStyle: TextStyle(
                       color: Color(BORDER_SEARCH),
                       fontSize: 14.0,fontFamily: 'Montserrat SemiBold',fontWeight: FontWeight.normal
@@ -225,7 +225,7 @@ class AddBohaerPageState extends State<AddBohaerPage> implements AddBohaerView {
                       color: Color(TEXT_TITLE),
                       fontSize: 14.0, fontFamily: 'Montserrat SemiBold',fontWeight: FontWeight.bold
                   ),
-                  hintText: AppLocalizations.of(context).translate('address_hint'),
+                  hintText: _radioValue1==0?AppLocalizations.of(context).translate('address_hint'):AppLocalizations.of(context).translate('address_hint_cheat'),
                   hintStyle: TextStyle(
                       color: Color(BORDER_SEARCH),
                       fontSize: 14.0, fontFamily: 'Montserrat SemiBold',fontWeight: FontWeight.normal
@@ -259,7 +259,7 @@ class AddBohaerPageState extends State<AddBohaerPage> implements AddBohaerView {
               height: 48,
               child: new TextFormField(
                 decoration:  new InputDecoration(
-                  labelText: AppLocalizations.of(context).translate('history'),
+                  labelText: _radioValue1==0?AppLocalizations.of(context).translate('history'):AppLocalizations.of(context).translate('history_cheat'),
                   labelStyle: TextStyle(
                       color: Color(TEXT_TITLE),
                       fontSize: 14.0, fontFamily: 'Montserrat SemiBold',fontWeight: FontWeight.bold
@@ -293,16 +293,61 @@ class AddBohaerPageState extends State<AddBohaerPage> implements AddBohaerView {
                 },
               ),
             ),
-            new Container(
-              margin: EdgeInsets.only(bottom: 50),
-              child: new Text(AppLocalizations.of(context).translate('detail_add'),
-                style: new TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'Montserrat Regular',fontStyle: FontStyle.normal),
-              ),
-            )
+            _textConTent()
             ,
           ],
         ),),
     ) ;
+  }
+
+  Widget _textConTent(){
+    return new Container(
+        margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+        child: new RichText(
+          text: new TextSpan(
+            children: [
+              new TextSpan(
+                text: AppLocalizations.of(context).translate(
+                    'detail_add_1'),
+                style: new TextStyle(color: Colors.black,
+                    fontSize: 14,
+                    fontFamily: 'Montserrat Regular',
+                    fontStyle: FontStyle.normal),
+              ),
+              new TextSpan(
+                text: AppLocalizations.of(context).translate(
+                    'detail_add_2'),
+                style: new TextStyle(color: Color(TEXT_TITLE),
+                    fontSize: 14,
+                    fontFamily: 'Montserrat Bold',
+                    fontWeight: FontWeight.bold),
+              ),
+              new TextSpan(
+                text: AppLocalizations.of(context).translate(
+                    'detail_add_3'),
+                style: new TextStyle(color: Colors.black,
+                    fontSize: 14,
+                    fontFamily: 'Montserrat Regular',
+                    fontStyle: FontStyle.normal),
+              ),
+              new TextSpan(
+                text: AppLocalizations.of(context).translate(
+                    'detail_add_4'),
+                style: new TextStyle(color: Color(TEXT_TITLE),
+                    fontSize: 14,
+                    fontFamily: 'Montserrat Bold',
+                    fontWeight: FontWeight.bold),
+              ),
+              new TextSpan(
+                text: AppLocalizations.of(context).translate(
+                    'detail_add_5'),
+                style: new TextStyle(color: Colors.black,
+                    fontSize: 14,
+                    fontFamily: 'Montserrat Regular',
+                    fontStyle: FontStyle.normal),
+              )
+            ],
+          ),));
   }
   Widget _buttonSend(){
     return new Container(

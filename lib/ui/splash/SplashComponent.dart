@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:boha/ui/splash/SplashView.dart';
 import 'package:boha/ui/splash/SplashPresenter.dart';
 import 'package:boha/ui/list/ListComponent.dart';
+import 'package:flutter_svg/svg.dart';
 import '../../app_localizations.dart';
 
 class SplashPageState extends State<SpashPage> implements SplashView {
@@ -22,8 +23,8 @@ class SplashPageState extends State<SpashPage> implements SplashView {
 
   void navigationPage() {
     Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => ListPage()),
+        context,
+        MaterialPageRoute(builder: (context) => ListPage()),
             (Route<dynamic> route) => false
     );
   }
@@ -41,11 +42,13 @@ class SplashPageState extends State<SpashPage> implements SplashView {
           child: Stack(
               children: [
                 new Align(alignment: Alignment.topCenter,
-                        child: new Container(
-                          margin: EdgeInsets.only(top: 200),
-                          child: Text(AppLocalizations.of(context).translate('app_name_big'),
-                              style: TextStyle(color: Color(TEXT_TITLE), fontSize: 36, fontFamily: 'Montserrat Bold',fontWeight: FontWeight.bold)),
-                        ),),
+                    child: new Container(
+                        margin: EdgeInsets.only(top: 200),
+                        child: Container(
+                          margin: EdgeInsets.only(right: 0),
+                          child: SvgPicture.asset("images/ic_logo.svg",
+                            color: Color(TEXT_TITLE),),
+                        ))),
                 new Align(alignment: Alignment.bottomCenter,
                   child: new Container(
                     margin: EdgeInsets.only(bottom: 40),
