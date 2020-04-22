@@ -38,6 +38,7 @@ dependencies:
   pull_to_refresh: ^1.5.7
   flutter_statusbarcolor: ^0.2.3
   onesignal_flutter: ^2.0.0
+  admob_flutter: ^0.3.1
 
 dev_dependencies:
   flutter_test:

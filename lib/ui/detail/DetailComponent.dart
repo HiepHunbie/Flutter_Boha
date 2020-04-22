@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:boha/components/EmptyAppBar.dart';
@@ -10,6 +11,7 @@ import 'package:boha/model/detail/DislikeResult.dart';
 import 'package:boha/model/detail/ListCommentData.dart';
 import 'package:boha/model/list/ListData.dart';
 import 'package:boha/ui/list/ListComponent.dart';
+import 'package:boha/utils/AppAds.dart';
 import 'package:boha/utils/Colors.dart';
 import 'package:boha/utils/Constants.dart';
 import 'package:date_format/date_format.dart';
@@ -41,13 +43,14 @@ class DetailPageState extends State<DetailPage> implements DetailView {
     this.totalDislike = hotelData.totalDislike;
   }
 
-
   @override
   void initState() {
     super.initState();
     _isLoading = true;
     presenter.getComments(this.posId);
     _getUserId();
+//    AppAds.init();
+//    AppAds.showBanner();
   }
 
   @override
@@ -165,8 +168,8 @@ class DetailPageState extends State<DetailPage> implements DetailView {
             icon: Icon(Icons.arrow_back),
             tooltip: "Navigation Menu",
             onPressed: ()=> Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ListPage())),
+                context,
+                MaterialPageRoute(builder: (context) => ListPage())),
           ),
           Expanded(
               child: Align(alignment: Alignment.center,

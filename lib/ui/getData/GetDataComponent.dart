@@ -5,6 +5,7 @@ import 'package:boha/components/MySeparator.dart';
 import 'package:boha/model/ErrorData.dart';
 import 'package:boha/model/getData/GetDataInput.dart';
 import 'package:boha/model/getData/GetDataResult.dart';
+import 'package:boha/utils/AppAds.dart';
 import 'package:boha/utils/Colors.dart';
 import 'package:boha/utils/Constants.dart';
 import 'package:flutter/material.dart';
@@ -332,6 +333,9 @@ class GetDataPageState extends State<GetDataPage> implements GetDataView {
   }
   @override
   void onSuccess(GetDataResult items) {
+    AppAds.rewardAds(onCloseSelected:()
+    {
+    });
     setState(() {
       _isLoading = false;
     });

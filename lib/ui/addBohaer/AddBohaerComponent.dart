@@ -5,6 +5,7 @@ import 'package:boha/components/MySeparator.dart';
 import 'package:boha/model/ErrorData.dart';
 import 'package:boha/model/addBohaer/AddBohaerInput.dart';
 import 'package:boha/model/addBohaer/AddBohaerResult.dart';
+import 'package:boha/utils/AppAds.dart';
 import 'package:boha/utils/Colors.dart';
 import 'package:boha/utils/Constants.dart';
 import 'package:flutter/material.dart';
@@ -390,18 +391,20 @@ class AddBohaerPageState extends State<AddBohaerPage> implements AddBohaerView {
     );
   }
 
+
   void _addBohaer(){
-    AddBohaerInput addBohaerInput = new AddBohaerInput();
-    addBohaerInput.user_id = this._userId;
-    addBohaerInput.phone = this._phone;
-    addBohaerInput.name = this._name_or_fb;
-    addBohaerInput.type = this._type;
-    addBohaerInput.address = this._address;
-    addBohaerInput.history = this._history;
-    setState(() {
-      _isLoading = true;
-    });
-    presenter.createBohaer(addBohaerInput);
+      AddBohaerInput addBohaerInput = new AddBohaerInput();
+      addBohaerInput.user_id = this._userId;
+      addBohaerInput.phone = this._phone;
+      addBohaerInput.name = this._name_or_fb;
+      addBohaerInput.type = this._type;
+      addBohaerInput.address = this._address;
+      addBohaerInput.history = this._history;
+      setState(() {
+        _isLoading = true;
+      });
+      presenter.createBohaer(addBohaerInput);
+
   }
   void _showAlertError(BuildContext context, List<ErrorData> value) {
     String result = "";
@@ -433,12 +436,15 @@ class AddBohaerPageState extends State<AddBohaerPage> implements AddBohaerView {
 
   @override
   void onSuccess(AddBohaerResult items) {
-    setState(() {
-      _isLoading = false;
-    });
 //    Scaffold.of(context).showSnackBar(SnackBar(
 //      content: Text(AppLocalizations.of(context).translate('create_success')),
 //    ));
+    AppAds.interstitialAds(onCloseSelected:(){
+
+    });
+    setState(() {
+      _isLoading = false;
+    });
     navigationPage();
   }
 

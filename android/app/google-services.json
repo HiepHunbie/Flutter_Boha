@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "628468549426",
+    "firebase_url": "https://boha-3f76f.firebaseio.com",
+    "project_id": "boha-3f76f",
+    "storage_bucket": "boha-3f76f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:628468549426:android:15cc520648520d1a34b92b",
+        "android_client_info": {
+          "package_name": "com.lts.boha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "628468549426-pvmerdr8cltuh0bsd97sdlavae8ofiiu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lts.boha",
+            "certificate_hash": "39834c01c7aebafbf5bcf8ecdcd3da8f1461f2e4"
+          }
+        },
+        {
+          "client_id": "628468549426-14mgqs9nnkficl7pkldc7169rasifcq5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnglMDAu8WJPLdTgJt-2mj2PYSEqW1nK8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "628468549426-14mgqs9nnkficl7pkldc7169rasifcq5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

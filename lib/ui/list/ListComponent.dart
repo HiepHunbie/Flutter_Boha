@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:boha/components/EmptyAppBar.dart';
 import 'package:boha/components/MySeparator.dart';
 import 'package:boha/data/FetchDataException.dart';
@@ -12,6 +13,7 @@ import 'package:boha/model/list/UserInput.dart';
 import 'package:boha/model/list/UserResult.dart';
 import 'package:boha/ui/list/ListDataView.dart';
 import 'package:boha/ui/list/ListPresenter.dart';
+import 'package:boha/utils/AppAds.dart';
 import 'package:boha/utils/Colors.dart';
 import 'package:boha/utils/Constants.dart';
 import 'package:device_info/device_info.dart';
@@ -54,6 +56,7 @@ class ListPageState extends State<ListPage> with TickerProviderStateMixin implem
   bool _requireConsent = true;
   bool _enableConsentButton = false;
   String playerId = "";
+  int countSearch = 0;
 
   ListPageState() {
     presenter = new BasicListPresenter(this);
@@ -61,7 +64,6 @@ class ListPageState extends State<ListPage> with TickerProviderStateMixin implem
   String deviceType = "";
   String deviceId = "test";
   RefreshController _refreshController;
-  static const String DEFAULT_APP_ID = 'a50e2a85-d23b-4bea-8995-a00f0361d895';
 
   @override
   void initState() {
@@ -80,6 +82,7 @@ class ListPageState extends State<ListPage> with TickerProviderStateMixin implem
     }
     _getUserId();
     initPlatformState();
+    AppAds.init();
   }
 
   @override
@@ -149,7 +152,8 @@ class ListPageState extends State<ListPage> with TickerProviderStateMixin implem
                                   loadMore();
                                 }
                               },
-                              child: isSelected[0] ?
+                              child:
+                              isSelected[0] ?
                               new Container(
                                   margin: EdgeInsets.only(left: 10, right: 10),
                                   child: new ListView.builder(
@@ -187,6 +191,10 @@ class ListPageState extends State<ListPage> with TickerProviderStateMixin implem
     );
   }
 
+  Widget genData(int index){
+    Hotel hotel = _hotels[index];
+    return _getCardItemUi(context,hotel);
+  }
   Widget _tabButton() {
     return new Container(
       margin: EdgeInsets.only(left: 10, right: 10),
@@ -624,6 +632,15 @@ class ListPageState extends State<ListPage> with TickerProviderStateMixin implem
 
   @override
   void onSuccess(List<Hotel> items) {
+    if(countSearch==3){
+      AppAds.rewardAds(onCloseSelected:()
+      {
+
+      });
+      setState(() {
+        countSearch = 0;
+      });
+    }
     setState(() {
       if(items.length<_limit){
         _stopLoadMore = true;
@@ -651,6 +668,11 @@ class ListPageState extends State<ListPage> with TickerProviderStateMixin implem
     presenter.loadHotels(_phone,_page,_limit,_type);
   }
   void searchData(String phone) {
+    if(phone.length>0){
+      setState(() {
+        this.countSearch = this.countSearch+1;
+      });
+    }
     setState(() {
       _isLoadMore= false;
       _isLoading = true;
@@ -1050,8 +1072,6 @@ class ListPageState extends State<ListPage> with TickerProviderStateMixin implem
     print(outcomeEvent.jsonRepresentation());
   }
 
-
-// Platform messages are asynchronous, so we initialize in an async method.
 
 }
 class ListPage extends StatefulWidget {
